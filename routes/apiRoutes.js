@@ -3,10 +3,10 @@
 const db = require("../models");
 const Cookies = require("js-cookie");
 
-module.exports = function(app) {
+module.exports = function (app) {
   // Register a new User
-  app.get("/api/examples", function(req, res) {
-    db.User.find({}).then(function(dbExamples) {
+  app.get("/api/examples", function (req, res) {
+    db.User.find({}).then(function (dbExamples) {
       res.json(dbExamples);
     });
   });
