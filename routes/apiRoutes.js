@@ -3,10 +3,10 @@
 const db = require("../models");
 const Cookies = require("js-cookie");
 
-module.exports = function (app) {
+module.exports = function(app) {
   // Register a new User
-  app.get("/api/examples", function (req, res) {
-    db.User.find({}).then(function (dbExamples) {
+  app.get("/api/examples", function(req, res) {
+    db.User.find({}).then(function(dbExamples) {
       res.json(dbExamples);
     });
   });
@@ -18,7 +18,7 @@ module.exports = function (app) {
     switch (newAsset.type) {
       case "hardware":
         newAssetAssignment = {
-          hardware_id: newAsset.hardwareId,
+          hardware_id: newAsset.assetId,
           user_id: newAsset.userID
         };
         db.UserHardware.create(newAssetAssignment).then(function(dbExample) {
@@ -27,7 +27,7 @@ module.exports = function (app) {
         break;
       case "software":
         newAssetAssignment = {
-          software_id: newAsset.hardwareId,
+          software_id: newAsset.assetId,
           user_id: newAsset.userID
         };
         db.UserSoftware.create(newAssetAssignment).then(function(dbExample) {
@@ -36,7 +36,7 @@ module.exports = function (app) {
         break;
       case "accessory":
         newAssetAssignment = {
-          accessory_id: newAsset.hardwareId,
+          accessory_id: newAsset.assetId,
           user_id: newAsset.userID
         };
         db.UserAccessory.create(newAssetAssignment).then(function(dbExample) {
