@@ -8,10 +8,9 @@ module.exports = function(app) {
     let currentUser = Cookies.get("usernameG6");
     let currentRole = Cookies.get("roleG6");
     if (currentUser) {
-      db.User.findOne(
-        { where: { username: currentUser } },
-        { include: [Hardware, Software, Accessory] }
-      ).then(function(userInfo) {
+      db.User.findOne({ where: { username: currentUser } }).then(function(
+        userInfo
+      ) {
         if (currentRole === 1) {
           //print info for user role
         } else {
