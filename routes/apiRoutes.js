@@ -1,4 +1,7 @@
+/* eslint-disable indent */
+/* eslint-disable camelcase */
 const db = require("../models");
+const Cookies = require("js-cookie");
 
 module.exports = function (app) {
   // Register a new User
@@ -9,17 +12,42 @@ module.exports = function (app) {
   });
 
   // Create a new example
-  app.post("/api/examples", function (req, res) {
-    db.Example.create(req.body).then(function (dbExample) {
-      res.json(dbExample);
-    });
+  app.post("/api/assign", function(req, res) {
+    let newAsset = req.body;
+    let newAssetAssignment = {};
+    switch (newAsset.type) {
+      case "hardware":
+        newAssetAssignment = {
+          hardware_id: newAsset.hardwareId,
+          user_id: newAsset.userID
+        };
+        db.UserHardware.create(newAssetAssignment).then(function(dbExample) {
+          res.json(dbExample);
+        });
+        break;
+      case "software":
+        newAssetAssignment = {
+          software_id: newAsset.hardwareId,
+          user_id: newAsset.userID
+        };
+        db.UserSoftware.create(newAssetAssignment).then(function(dbExample) {
+          res.json(dbExample);
+        });
+        break;
+      case "accessory":
+        newAssetAssignment = {
+          accessory_id: newAsset.hardwareId,
+          user_id: newAsset.userID
+        };
+        db.UserAccessory.create(newAssetAssignment).then(function(dbExample) {
+          res.json(dbExample);
+        });
+    }
   });
 
   // Delete an example by id
-  app.delete("/api/examples/:id", function (req, res) {
-    db.Example.destroy({ where: { id: req.params.id } }).then(function (
-      dbExample
-    ) {
+  app.delete("/api/delete/user/:id", function(req, res) {
+    db.User.destroy({ where: { id: req.params.id } }).then(function(dbExample) {
       res.json(dbExample);
     });
   });
