@@ -121,12 +121,14 @@ module.exports = function (app) {
         res.json("Wrong password");
         return "Incorrect password.";
       }
-      Cookies.set("usernameG6", loginUser.username);
-      Cookies.set("roleG6", loginUser.role_id);
+      console.log(typeof user.username);
+      Cookies.set("usernameG6", "user.username", { expires: 7 });
+      console.log(Cookies.get());
+      Cookies.set("roleG6", user.role, { expires: 7 });
+      console.log(Cookies.get("roleG6"));
       //redirect to main page based on type of user
-      res.json(user);
       console.log("logged in successfully");
-      return "Login";
+      res.redirect("/");
     });
   });
 
