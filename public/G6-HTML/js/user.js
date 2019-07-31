@@ -4,9 +4,9 @@ $.get("/api/currentUser", function(currentUser) {
     .then(accessoryList => {
       const head = $("<thead>");
       head.append("<tr>");
-      head.append("<td>Type</td>");
-      head.append("<td>Manufacturer</td>");
-      head.append("<td>Model</td>");
+      head.append("<th>Type</th>");
+      head.append("<th>Manufacturer</th>");
+      head.append("<th>Model</th>");
       $("#dataTable").append(head);
       $("#dataTable").append("<tbody id='tableRow'");
       accessoryList.forEach(element => {
@@ -28,9 +28,9 @@ $.get("/api/currentUser", function(currentUser) {
       $.get(`/api/user-software-ids/${currentUser.id}`).then(softwareList => {
         const head = $("<thead>");
         head.append("<tr>");
-        head.append("<td>Product</td>");
-        head.append("<td>Manufacturer</td>");
-        head.append("<td>Expiration Date</td>");
+        head.append("<th>Product</th>");
+        head.append("<th>Manufacturer</th>");
+        head.append("<th>Expiration Date</th>");
         head.append("</tr");
         head.append("</thead>");
         $("#dataTable").prepend("<tbody id='softwareRow'");
@@ -56,10 +56,10 @@ $.get("/api/currentUser", function(currentUser) {
       $.get(`/api/user-hardware-ids/${currentUser.id}`).then(hardwareList => {
         const head = $("<thead>");
         head.append("<tr>");
-        head.append("<td>Type</td>");
-        head.append("<td>Manufacturer</td>");
-        head.append("<td>Model</td>");
-        head.append("<td>Serial Number</td>");
+        head.append("<th>Type</th>");
+        head.append("<th>Manufacturer</th>");
+        head.append("<th>Model</th>");
+        head.append("<th>Serial Number</th>");
         head.append("</tr");
         head.append("</thead>");
         $("#dataTable").prepend("<tbody id='hardwareRow'");
