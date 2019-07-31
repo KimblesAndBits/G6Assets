@@ -1,12 +1,16 @@
 /* eslint-disable indent */
 /* eslint-disable camelcase */
 const db = require("../models");
-const Cookies = require("js-cookie");
+const localStorage = require("localStorage");
 
-module.exports = function (app) {
-  
+module.exports = function(app) {
   // ========= CREATE ==========
-  app.post("/api/assign", function (req, res) {
+  app.get("/api/currentUser", (req, res) => {
+    let currentUser = JSON.parse(localStorage.getItem("loggedUser"));
+    res.json(currentUser);
+  });
+
+  app.post("/api/assign", function(req, res) {
     let newAsset = req.body;
     let newAssetAssignment = {};
     switch (newAsset.type) {
@@ -15,7 +19,7 @@ module.exports = function (app) {
           hardware_id: newAsset.assetId,
           user_id: newAsset.userID
         };
-        db.UserHardware.create(newAssetAssignment).then(function (dbExample) {
+        db.UserHardware.create(newAssetAssignment).then(function(dbExample) {
           res.json(dbExample);
         });
         break;
@@ -24,7 +28,7 @@ module.exports = function (app) {
           software_id: newAsset.assetId,
           user_id: newAsset.userID
         };
-        db.UserSoftware.create(newAssetAssignment).then(function (dbExample) {
+        db.UserSoftware.create(newAssetAssignment).then(function(dbExample) {
           res.json(dbExample);
         });
         break;
@@ -33,21 +37,21 @@ module.exports = function (app) {
           accessory_id: newAsset.assetId,
           user_id: newAsset.userID
         };
-        db.UserAccessory.create(newAssetAssignment).then(function (dbExample) {
+        db.UserAccessory.create(newAssetAssignment).then(function(dbExample) {
           res.json(dbExample);
         });
     }
   });
 
-  app.post("/register", (req, res) => {
+  app.post("/api/register", (req, res) => {
     let newUser = req.body;
     db.User.create(newUser).then(dbUser => {
       res.json(dbUser);
     });
   });
 
-  app.post("/add", (req, res) => {
-    let newAsset = req.body;
+  app.post("/api/add", (req, res) => {
+    let formInfo = req.body;
     console.log(req.body);
 
     // get type of asset being added
@@ -96,10 +100,10 @@ module.exports = function (app) {
         break;
       default:
         console.log("No assets added");
-    };
+    }
   });
 
-  app.post("/request", (req, res) => {
+  app.post("/api/request", (req, res) => {
     let newRequest = req.body;
     console.log(newRequest);
     db.Requests.create(newRequest).then(dbUser => {
@@ -107,28 +111,24 @@ module.exports = function (app) {
     });
   });
 
-  app.post("/login", (req, res) => {
+  app.post("/api/login", (req, res) => {
     let loginUser = req.body;
-    console.log(loginUser);
     db.User.findOne({ where: { username: loginUser.username } }).then(user => {
       if (!user) {
         console.log("No user");
         res.json("No such user");
         return "No such username.";
+      } else {
+        if (loginUser.password !== user.password) {
+          console.log("wrong password");
+          res.json("Wrong password");
+          return "Incorrect password.";
+        } else {
+          localStorage.setItem("loggedUser", JSON.stringify(user));
+          console.log(`Logged in user "${user.username}" successfully.`);
+          res.redirect("/main");
+        }
       }
-      if (loginUser.password !== user.password) {
-        console.log("wrong password");
-        res.json("Wrong password");
-        return "Incorrect password.";
-      }
-      console.log(typeof user.username);
-      Cookies.set("usernameG6", "user.username", { expires: 7 });
-      console.log(Cookies.get());
-      Cookies.set("roleG6", user.role, { expires: 7 });
-      console.log(Cookies.get("roleG6"));
-      //redirect to main page based on type of user
-      console.log("logged in successfully");
-      res.redirect("/");
     });
   });
 
@@ -136,42 +136,33 @@ module.exports = function (app) {
 
   // Get all accessories
   app.get("/api/all-accessories", function(req, res) {
-    db.Accessory.findAll({attributes: ['accessory_type', 'manufacturer', 'model', 'quantity_available', 'bin_location']}).then(function(results) {
+    db.Accessory.findAll().then(function(results) {
       res.json(results);
     });
-
   });
 
   // Get all hardware
   app.get("/api/all-hardware", function(req, res) {
-    db.Hardware.findAll({attributes: ['asset_type', 'manufacturer', 'model', 'asset_tag', 'serial_number', 'status']}).then(function(results) {
+    db.Hardware.findAll().then(function(results) {
       res.json(results);
     });
-
   });
 
   // Get all software
   app.get("/api/all-software", function(req, res) {
-    db.Software.findAll({attributes: ['manufacturer', 'product', 'product_key', 'expiration_date', 'license_size', 'license_available']}).then(function(results) {
+    db.Software.findAll().then(function(results) {
       res.json(results);
     });
-
   });
-
 
   // =========== UPDATE ==============
 
   // =========== DELETE ==============
 
   // Delete an example by id
-  app.delete("/api/delete/user/:id", function (req, res) {
-    db.User.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
+  app.delete("/api/delete/user/:id", function(req, res) {
+    db.User.destroy({ where: { id: req.params.id } }).then(function(dbExample) {
       res.json(dbExample);
     });
   });
-
-
 };
-
-
-

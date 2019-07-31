@@ -1,3 +1,6 @@
 models/index.js
 node_modules
 test/canary.test.js
+public/G6-HTML/scss
+public/G6-HTML/vendor
+public/G6-HTML/js/sb-admin-2.min.js
