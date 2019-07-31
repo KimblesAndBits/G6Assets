@@ -1,36 +1,42 @@
 const db = require("../models");
-const Cookies = require("js-cookie");
+// const Cookies = require("js-cookie");
+const path = require("path");
 
 module.exports = function(app) {
-  // Load index page
   app.get("/", function(req, res) {
+    // cookies don't work on localhost in chrome. I will attempt to test them using
+    // the Heroku deployment
     req;
-    let currentUser = Cookies.get("usernameG6");
-    let currentRole = Cookies.get("roleG6");
-    if (currentUser) {
-      db.User.findOne({ where: { username: currentUser } }).then(function(
-        userInfo
-      ) {
+    // let currentUser = Cookies.get("usernameG6");
+    let currentRole = 1; //Cookies.getnpm("roleG6");
+    console.log(currentUser);
+    // if (currentUser) {
+    //   db.User.findOne({ where: { username: currentUser } }).then(function(
+    //     userInfo
+    //   ) {
         if (currentRole === 1) {
-          //print info for user role
+          res.redirect("/user");
         } else {
-          //print info for admin role
+          res.redirect("/admin");
         }
         res.json(userInfo);
-      });
-    } else {
-      //redirect to login
-      res.json(false);
-    }
+      // });
+    // } else {
+    //   res.redirect("/login");
+    // }
   });
 
-  // Load example page and pass in an example by id
-  app.get("/example/:id", function(req, res) {
-    db.Example.findOne({ where: { id: req.params.id } }).then(function(
-      dbExample
-    ) {
-      res.json(dbExample);
-    });
+  app.get("/login", (req, res) => {
+    req;
+    res.sendFile(path.join(__dirname, "../public/G6-HTML/index.html"));
+  });
+
+  app.get("/user", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/G6-HTML/user.html"));
+  });
+
+  app.get("/admin", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/G6-HTML/admin.html"));
   });
 
   // Render 404 page for any unmatched routes

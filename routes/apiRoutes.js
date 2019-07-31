@@ -2,7 +2,6 @@
 /* eslint-disable camelcase */
 const db = require("../models");
 const Cookies = require("js-cookie");
-
 module.exports = function(app) {
   // Register a new User
   app.get("/api/examples", function(req, res) {
@@ -45,7 +44,7 @@ module.exports = function(app) {
     }
   });
 
-  // Delete an example by id
+  // Delete a user by id
   app.delete("/api/delete/user/:id", function(req, res) {
     db.User.destroy({ where: { id: req.params.id } }).then(function(dbExample) {
       res.json(dbExample);
@@ -59,7 +58,7 @@ module.exports = function(app) {
     });
   });
 
-  app.post("/login", (req, res) => {
+  app.post("/api/login", (req, res) => {
     let loginUser = req.body;
     console.log(loginUser);
     db.User.findOne({ where: { username: loginUser.username } }).then(user => {
@@ -73,12 +72,14 @@ module.exports = function(app) {
         res.json("Wrong password");
         return "Incorrect password.";
       }
-      Cookies.set("usernameG6", loginUser.username);
-      Cookies.set("roleG6", loginUser.role_id);
+      console.log(typeof user.username);
+      Cookies.set("usernameG6", "user.username", { expires: 7 });
+      console.log(Cookies.get());
+      Cookies.set("roleG6", user.role, { expires: 7 });
+      console.log(Cookies.get("roleG6"));
       //redirect to main page based on type of user
-      res.json(user);
       console.log("logged in successfully");
-      return "Login";
+      res.redirect("/");
     });
   });
 };
