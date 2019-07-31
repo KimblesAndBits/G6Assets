@@ -1,5 +1,6 @@
 const db = require("../models");
 const Cookies = require("js-cookie");
+const path = require("path");
 
 module.exports = function(app) {
   // Load index page
@@ -24,18 +25,17 @@ module.exports = function(app) {
     }
   });
 
-  // Load example page and pass in an example by id
-  app.get("/example/:id", function(req, res) {
-    db.Example.findOne({ where: { id: req.params.id } }).then(function(
-      dbExample
-    ) {
-      res.json(dbExample);
-    });
+  app.get("/admin", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/G6-HTML/admin.html"));
+  });
+
+  app.get("/accessories", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/G6-HTML/accessories.html"));
   });
 
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
-    req;
-    res.json(res.body);
+    res.send("ERROR - 110010100: Page Not Found");
   });
+  
 };
