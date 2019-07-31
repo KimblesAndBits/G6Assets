@@ -10,7 +10,7 @@ $(document).ready(function() {
       data: loginUser
     }).then(newPath => {
       console.log(newPath);
-      location.replace("/admin");
+      location.replace("/main");
     });
   });
 });

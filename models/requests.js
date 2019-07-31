@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 module.exports = function(sequelize, DataTypes) {
   //Request model info goes here
   const Requests = sequelize.define("Requests", {

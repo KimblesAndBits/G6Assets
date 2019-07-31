@@ -1,34 +1,23 @@
-const db = require("../models");
-// const Cookies = require("js-cookie");
+const localStorage = require("localStorage");
 const path = require("path");
 
 module.exports = function(app) {
-  app.get("/", function(req, res) {
-    // cookies don't work on localhost in chrome. I will attempt to test them using
-    // the Heroku deployment
-    req;
-    // let currentUser = Cookies.get("usernameG6");
-    let currentRole = 1; //Cookies.getnpm("roleG6");
-    console.log(currentUser);
-    // if (currentUser) {
-    //   db.User.findOne({ where: { username: currentUser } }).then(function(
-    //     userInfo
-    //   ) {
-        if (currentRole === 1) {
-          res.redirect("/user");
-        } else {
-          res.redirect("/admin");
-        }
-        res.json(userInfo);
-      // });
-    // } else {
-    //   res.redirect("/login");
-    // }
-  });
-
-  app.get("/login", (req, res) => {
+  app.get("/", (req, res) => {
     req;
     res.sendFile(path.join(__dirname, "../public/G6-HTML/index.html"));
+  });
+
+  app.get("/main", function(req, res) {
+    let currentUser = JSON.parse(localStorage.getItem("loggedUser"));
+    if (currentUser) {
+      if (currentUser.role === "1") {
+        res.redirect("/user");
+      } else {
+        res.redirect("/admin");
+      }
+    } else {
+      res.redirect("/");
+    }
   });
 
   app.get("/user", function(req, res) {
@@ -55,5 +44,4 @@ module.exports = function(app) {
   app.get("*", function(req, res) {
     res.send("ERROR - 110010100: Page Not Found");
   });
-
 };
