@@ -54,7 +54,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Placeholder</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
                 <img class="img-profile rounded-circle" src="https://static.thenounproject.com/png/531755-200.png">
               </a>
               <!-- Dropdown - User Information -->
@@ -161,7 +161,7 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h5 class="m-0 font-weight-bold text-primary float-left">Software</h5>
+              <h5 class="m-0 font-weight-bold text-primary float-left">All Software</h5>
               <a href="#" class="btn btn-primary btn-icon-split btn-sm float-right" data-toggle="modal" data-target="#addNewModal">
                 <span class="icon text-white-50"><i class="fas fa-exclamation-triangle"></i></span>
                 <span class="text">Add new asset</span>
@@ -172,12 +172,12 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Type</th>
                       <th>Manufacturer</th>
-                      <th>Model/Product</th>
-                      <th>Asset Tag</th>
-                      <th>Serial Number/Key</th>
+                      <th>Product</th>
+                      <th>Product Key</th>
                       <th>Expiration Date</th>
+                      <th>License Size</th>
+                      <th>License Available</th>
                     </tr>
                   </thead>
                   <!--<tfoot>
@@ -190,15 +190,7 @@
                       <th>Expiration Date</th>
                     </tr>
                   </tfoot>-->
-                  <tbody>
-                    <tr>
-                      <td>Placeholder</td>
-                      <td>Placeholder</td>
-                      <td>Placeholder</td>
-                      <td>Placeholder</td>
-                      <td>Placeholder</td>
-                      <td>Placeholder</td>
-                    </tr>
+                  <tbody id="tableRow">
                   </tbody>
                 </table>
               </div>
@@ -258,15 +250,7 @@
   <!-- Core plugin JavaScript-->
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-  <!-- Custom scripts for all pages-->
-  <script src="js/G6-user.min.js"></script>
-
-  <!-- Page level plugins -->
-  <script src="vendor/chart.js/Chart.min.js"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="js/demo/chart-area-demo.js"></script>
-  <script src="js/demo/chart-pie-demo.js"></script>
+  <script type="text/javascript" src="js/software.js"></script>
 
 </body>
 

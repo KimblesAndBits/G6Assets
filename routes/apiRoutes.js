@@ -134,6 +134,31 @@ module.exports = function (app) {
 
   // =========== READ ==============
 
+  // Get all accessories
+  app.get("/api/all-accessories", function(req, res) {
+    db.Accessory.findAll({attributes: ['accessory_type', 'manufacturer', 'model', 'quantity_available', 'bin_location']}).then(function(results) {
+      res.json(results);
+    });
+
+  });
+
+  // Get all hardware
+  app.get("/api/all-hardware", function(req, res) {
+    db.Hardware.findAll({attributes: ['asset_type', 'manufacturer', 'model', 'asset_tag', 'serial_number', 'status']}).then(function(results) {
+      res.json(results);
+    });
+
+  });
+
+  // Get all software
+  app.get("/api/all-software", function(req, res) {
+    db.Software.findAll({attributes: ['manufacturer', 'product', 'product_key', 'expiration_date', 'license_size', 'license_available']}).then(function(results) {
+      res.json(results);
+    });
+
+  });
+
+
   // =========== UPDATE ==============
 
   // =========== DELETE ==============
