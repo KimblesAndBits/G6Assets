@@ -141,6 +141,22 @@ module.exports = function(app) {
     });
   });
 
+  app.get("/api/user-accessories/:id", function(req, res) {
+    db.Accessory.findOne({ where: { id: req.params.id } }).then(function(
+      results
+    ) {
+      res.json(results);
+    });
+  });
+
+  app.get("/api/user-accessories-ids/:id", function(req, res) {
+    db.User_Accessory.findAll({ where: { user_id: req.params.id } }).then(
+      function(results) {
+        res.json(results);
+      }
+    );
+  });
+
   // Get all hardware
   app.get("/api/all-hardware", function(req, res) {
     db.Hardware.findAll().then(function(results) {
@@ -148,11 +164,43 @@ module.exports = function(app) {
     });
   });
 
+  app.get("/api/user-hardware/:id", function(req, res) {
+    db.Hardware.findAll({ where: { id: req.params.id } }).then(function(
+      results
+    ) {
+      res.json(results);
+    });
+  });
+
+  app.get("/api/user-hardware-ids/:id", function(req, res) {
+    db.User_Hardware.findAll({ where: { user_id: req.params.id } }).then(
+      function(results) {
+        res.json(results);
+      }
+    );
+  });
+
   // Get all software
   app.get("/api/all-software", function(req, res) {
     db.Software.findAll().then(function(results) {
       res.json(results);
     });
+  });
+
+  app.get("/api/user-software/:id", function(req, res) {
+    db.Software.findAll({ where: { id: req.params.id } }).then(function(
+      results
+    ) {
+      res.json(results);
+    });
+  });
+
+  app.get("/api/user-software-ids/:id", function(req, res) {
+    db.User_Software.findAll({ where: { user_id: req.params.id } }).then(
+      function(results) {
+        res.json(results);
+      }
+    );
   });
 
   // =========== UPDATE ==============

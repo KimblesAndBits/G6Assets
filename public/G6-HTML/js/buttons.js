@@ -13,4 +13,9 @@ $(document).ready(function() {
       location.replace("/main");
     });
   });
+  $("#userPassword").keyup(function(event) {
+    if (event.keyCode === 13) {
+      $("#login-button").click();
+    }
+  });
 });

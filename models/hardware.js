@@ -22,20 +22,13 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     status: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING
     },
     eol: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING
     },
     bin_location: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    user_id: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING
     },
     date_assigned: DataTypes.DATE
   });
