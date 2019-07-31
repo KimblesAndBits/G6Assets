@@ -37,11 +37,15 @@ module.exports = function(app) {
 
   app.get("/admin", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/G6-HTML/admin.html"));
+
+
+  app.get("/accessories", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/G6-HTML/accessories.html"));
   });
 
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
-    req;
-    res.json(res.body);
+    res.send("ERROR - 110010100: Page Not Found");
   });
+  
 };
