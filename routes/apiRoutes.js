@@ -165,7 +165,7 @@ module.exports = function(app) {
   });
 
   app.get("/api/user-hardware/:id", function(req, res) {
-    db.Hardware.findAll({ where: { id: req.params.id } }).then(function(
+    db.Hardware.findOne({ where: { id: req.params.id } }).then(function(
       results
     ) {
       res.json(results);
@@ -188,7 +188,7 @@ module.exports = function(app) {
   });
 
   app.get("/api/user-software/:id", function(req, res) {
-    db.Software.findAll({ where: { id: req.params.id } }).then(function(
+    db.Software.findOne({ where: { id: req.params.id } }).then(function(
       results
     ) {
       res.json(results);
