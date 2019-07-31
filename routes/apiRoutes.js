@@ -4,14 +4,8 @@ const db = require("../models");
 const Cookies = require("js-cookie");
 
 module.exports = function (app) {
-  // Register a new User
-  app.get("/api/examples", function (req, res) {
-    db.User.find({}).then(function (dbExamples) {
-      res.json(dbExamples);
-    });
-  });
-
-  // Create a new example
+  
+  // ========= CREATE ==========
   app.post("/api/assign", function (req, res) {
     let newAsset = req.body;
     let newAssetAssignment = {};
@@ -43,13 +37,6 @@ module.exports = function (app) {
           res.json(dbExample);
         });
     }
-  });
-
-  // Delete an example by id
-  app.delete("/api/delete/user/:id", function (req, res) {
-    db.User.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
-      res.json(dbExample);
-    });
   });
 
   app.post("/register", (req, res) => {
@@ -112,6 +99,14 @@ module.exports = function (app) {
     };
   });
 
+  app.post("/request", (req, res) => {
+    let newRequest = req.body;
+    console.log(newRequest);
+    db.Requests.create(newRequest).then(dbUser => {
+      res.json(dbUser);
+    });
+  });
+
   app.post("/login", (req, res) => {
     let loginUser = req.body;
     console.log(loginUser);
@@ -134,4 +129,22 @@ module.exports = function (app) {
       return "Login";
     });
   });
+
+  // =========== READ ==============
+
+  // =========== UPDATE ==============
+
+  // =========== DELETE ==============
+
+  // Delete an example by id
+  app.delete("/api/delete/user/:id", function (req, res) {
+    db.User.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
+      res.json(dbExample);
+    });
+  });
+
+
 };
+
+
+
