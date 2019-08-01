@@ -1,14 +1,8 @@
+/* eslint-disable camelcase */
+
 $.get("/api/currentUser", data => {
   $("#user-real-name").text(data.name);
 });
-
-// <th>Type</th>
-// <th>Manufacturer</th>
-// <th>Model/Product</th>
-// <th>Asset Tag</th>
-// <th>Serial Number/Key</th>
-// <th>Expiration Date</th>
-// <th>Last Updated Date</th>
 
 $.get("/api/recent-software")
   .then(assetList => {
@@ -63,3 +57,28 @@ $.get("/api/recent-software")
       });
     });
   });
+
+$(document).ready(function() {
+  $("#requestSubmit").on("click", function() {
+    let newRequest = {
+      full_name: $("#fullName").val(),
+      asset_type: $("#assetType").val(),
+      laptop_type: $("#laptopType").val(),
+      monitor_type: $("#monitorType").val(),
+      software: $("#software").val(),
+      accessory: $("#accessoryType").val()
+    };
+    $.ajax("/api/request", {
+      type: "POST",
+      data: newRequest
+    }).then(function() {
+      $("#fullName").val("");
+      $("#assetType").val("");
+      $("#laptopType").val("");
+      $("#monitorType").val("");
+      $("#software").val("");
+      $("#accessoryType").val("");
+      $("#requestModal").modal("hide");
+    });
+  });
+});

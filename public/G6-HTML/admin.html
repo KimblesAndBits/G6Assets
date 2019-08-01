@@ -84,7 +84,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <a href="software.html">
+                      <a href="/software">
                       <div class="text-s font-weight-bold text-primary text-uppercase mb-1">Software</div>
                       </a>
                       <div class="text-xs mb-0 font-weight-bold text-gray-800">(Microsoft Office, Photoshop, etc.)</div>
@@ -103,7 +103,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <a href="hardware.html">
+                      <a href="/hardware">
                       <div class="text-s font-weight-bold text-success text-uppercase mb-1">Hardware</div>
                       </a>
                       <div class="text-xs mb-0 font-weight-bold text-gray-800">(Computers, Monitors, etc.)</div>
@@ -122,7 +122,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <a href="accessories.html">
+                      <a href="/accessories">
                       <div class="text-s font-weight-bold text-info text-uppercase mb-1">Accessories</div>
                       </a>
                       <div class="row no-gutters align-items-center">
@@ -263,16 +263,17 @@
         <div class="modal-body"><p>Please select from the following options.  An admin will review your request and respond within 48 business hours.</p><hr>
           <form>
             <div class="form-group mt-4">
-              <label for="emailAddress">Email address</label>
-              <input type="email" class="form-control" id="emailAddress" placeholder="name@example.com">
+              <label for="emailAddress">Full Name</label>
+              <input type="text" class="form-control" id="fullName" placeholder="Daniel Kimble">
             </div>
             <div class="form-group">
-              <label for="assetType">Choose asset type (multi-select)</label>
-              <select multiple class="form-control" id="assetType">
+              <label for="assetType">Choose asset type</label>
+              <select class="form-control" id="assetType">
                 <option disabled selected value> -- select an option -- </option>
                 <option>Laptop</option>
                 <option>Monitor</option>
                 <option>Software</option>
+                <option>None</option>
               </select>
             </div>
             <div class="form-group">
@@ -282,6 +283,7 @@
                 <option>Apple</option>
                 <option>Sony</option>
                 <option>Lenovo</option>
+                <option>None</option>
               </select>
             </div>
             <div class="form-group">
@@ -291,26 +293,29 @@
                 <option>LG</option>
                 <option>Dell</option>
                 <option>HP</option>
+                <option>None</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="software">Choose software (multi-select)</label>
-              <select multiple class="form-control" id="software">
+              <label for="software">Choose software</label>
+              <select class="form-control" id="software">
                 <option disabled selected value> -- select an option -- </option>
                 <option>Microsoft Office Mac</option>
                 <option>Adobe Photoshop</option>
                 <option>Microsoft Office PC</option>
+                <option>None</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="accessoryType">Choose accessory type (multi-select)</label>
-              <select multiple class="form-control" id="accessoryType">
+              <label for="accessoryType">Choose accessory type</label>
+              <select class="form-control" id="accessoryType">
                 <option disabled selected value> -- select an option -- </option>
                 <option>Mouse</option>
                 <option>Keyboard</option>
                 <option>Power Supply</option>
                 <option>Adapter</option>
                 <option>Printer</option>
+                <option>None</option>
                 <option>Other</option>
               </select>
             </div>
@@ -318,7 +323,7 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary" id="requestSubmit">Submit</button>
+          <button type="button" class="btn btn-primary" id="requestSubmit">Submit</button>
         </div>
       </div>
     </div>
