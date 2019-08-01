@@ -141,6 +141,14 @@ module.exports = function(app) {
     });
   });
 
+  app.get("/api/recent-accessories", function(req, res) {
+    db.Accessory.findAll({ order: ["updatedAt"], limit: 5 }).then(function(
+      results
+    ) {
+      res.json(results);
+    });
+  });
+
   app.get("/api/user-accessories/:id", function(req, res) {
     db.Accessory.findOne({ where: { id: req.params.id } }).then(function(
       results
@@ -164,6 +172,14 @@ module.exports = function(app) {
     });
   });
 
+  app.get("/api/recent-hardware", function(req, res) {
+    db.Hardware.findAll({ order: ["updatedAt"], limit: 5 }).then(function(
+      results
+    ) {
+      res.json(results);
+    });
+  });
+
   app.get("/api/user-hardware/:id", function(req, res) {
     db.Hardware.findOne({ where: { id: req.params.id } }).then(function(
       results
@@ -183,6 +199,14 @@ module.exports = function(app) {
   // Get all software
   app.get("/api/all-software", function(req, res) {
     db.Software.findAll().then(function(results) {
+      res.json(results);
+    });
+  });
+
+  app.get("/api/recent-software", function(req, res) {
+    db.Software.findAll({ order: ["updatedAt"], limit: 5 }).then(function(
+      results
+    ) {
       res.json(results);
     });
   });
