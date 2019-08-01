@@ -2,7 +2,7 @@
 module.exports = function(sequelize, DataTypes) {
   //Request model info goes here
   const Requests = sequelize.define("Requests", {
-    email_address: {
+    full_name: {
       type: DataTypes.STRING,
       allowNull: false
     },
