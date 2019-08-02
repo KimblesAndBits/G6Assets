@@ -60,7 +60,7 @@
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                
-                <a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>Manage Asset Requests</a>
+                <a class="dropdown-item" href="#"data-toggle="modal" data-target="#requestModal"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>Request New Asset</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout</a>
               </div>
@@ -84,7 +84,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <a href="software.html">
+                      <a href="/software">
                       <div class="text-s font-weight-bold text-primary text-uppercase mb-1">Software</div>
                       </a>
                       <div class="text-xs mb-0 font-weight-bold text-gray-800">(Microsoft Office, Photoshop, etc.)</div>
@@ -120,7 +120,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <a href="accessories.html">
+                      <a href="/accessories">
                       <div class="text-s font-weight-bold text-info text-uppercase mb-1">Accessories</div>
                       </a>
                       <div class="row no-gutters align-items-center">
@@ -238,7 +238,86 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="index.html">Logout</a>
+          <a class="btn btn-primary" href="/">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Request New Asset Modal-->
+  <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="addNewModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title m-0 font-weight-bold text-primary" id="exampleModalLabel">Submit request for new asset(s)</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body"><p>Please select from the following options.  An admin will review your request and respond within 48 business hours.</p><hr>
+          <form>
+            <div class="form-group mt-4">
+              <label for="emailAddress">Full Name</label>
+              <input type="text" class="form-control" id="fullName" placeholder="Daniel Kimble">
+            </div>
+            <div class="form-group">
+              <label for="assetType">Choose asset type</label>
+              <select class="form-control" id="assetType">
+                <option disabled selected value> -- select an option -- </option>
+                <option>Laptop</option>
+                <option>Monitor</option>
+                <option>Software</option>
+                <option>None</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="laptopType">Laptop type</label>
+              <select class="form-control" id="laptopType">
+                <option disabled selected value> -- select an option -- </option>
+                <option>Apple</option>
+                <option>Sony</option>
+                <option>Lenovo</option>
+                <option>None</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="monitorType">Monitor type</label>
+              <select class="form-control" id="monitorType">
+                <option disabled selected value> -- select an option -- </option>
+                <option>LG</option>
+                <option>Dell</option>
+                <option>HP</option>
+                <option>None</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="software">Choose software</label>
+              <select class="form-control" id="software">
+                <option disabled selected value> -- select an option -- </option>
+                <option>Microsoft Office Mac</option>
+                <option>Adobe Photoshop</option>
+                <option>Microsoft Office PC</option>
+                <option>None</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="accessoryType">Choose accessory type</label>
+              <select class="form-control" id="accessoryType">
+                <option disabled selected value> -- select an option -- </option>
+                <option>Mouse</option>
+                <option>Keyboard</option>
+                <option>Power Supply</option>
+                <option>Adapter</option>
+                <option>Printer</option>
+                <option>None</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="requestSubmit">Submit</button>
         </div>
       </div>
     </div>
@@ -252,6 +331,7 @@
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <script type="text/javascript" src="js/hardware.js"></script>
+  <script type="text/javascript" src="js/buttons.js"></script>
 
 </body>
 

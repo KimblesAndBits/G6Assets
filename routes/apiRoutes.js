@@ -117,16 +117,18 @@ module.exports = function(app) {
       if (!user) {
         console.log("No user");
         res.json("/");
-        return "No such username.";
       } else {
         if (loginUser.password !== user.password) {
           console.log("wrong password");
           res.json("/");
-          return "Incorrect password.";
         } else {
           localStorage.setItem("loggedUser", JSON.stringify(user));
           console.log(`Logged in user "${user.username}" successfully.`);
-          res.json("/main");
+          if (loginUser.role === "1") {
+            res.json("/user");
+          } else {
+            res.json("/admin");
+          }
         }
       }
     });
