@@ -37,7 +37,7 @@
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
        
-          <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin.html">
+          <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
             <div class="sidebar-brand-icon rotate-n-15">
               <i class="fas fa-fighter-jet"></i>
             </div>
@@ -60,7 +60,7 @@
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                
-                <a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>Manage Asset Requests</a>
+                <a class="dropdown-item" href="#"data-toggle="modal" data-target="#requestModal"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>Request New Asset</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout</a>
               </div>
@@ -243,15 +243,15 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="index.html">Logout</a>
+          <a class="btn btn-primary" href="/">Logout</a>
         </div>
       </div>
     </div>
   </div>
 
 
-   <!-- Add New Asset Modal-->
-   <div class="modal fade" id="addNewModal" tabindex="-1" role="dialog" aria-labelledby="addNewModal" aria-hidden="true">
+   <!-- Request New Asset Modal-->
+   <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="addNewModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -336,6 +336,7 @@
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <script src="js/admin.js"></script>
+  <script src="js/buttons.js"></script>
 
 </body>
 

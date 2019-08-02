@@ -57,28 +57,3 @@ $.get("/api/recent-software")
       });
     });
   });
-
-$(document).ready(function() {
-  $("#requestSubmit").on("click", function() {
-    let newRequest = {
-      full_name: $("#fullName").val(),
-      asset_type: $("#assetType").val(),
-      laptop_type: $("#laptopType").val(),
-      monitor_type: $("#monitorType").val(),
-      software: $("#software").val(),
-      accessory: $("#accessoryType").val()
-    };
-    $.ajax("/api/request", {
-      type: "POST",
-      data: newRequest
-    }).then(function() {
-      $("#fullName").val("");
-      $("#assetType").val("");
-      $("#laptopType").val("");
-      $("#monitorType").val("");
-      $("#software").val("");
-      $("#accessoryType").val("");
-      $("#requestModal").modal("hide");
-    });
-  });
-});

@@ -1,23 +1,9 @@
-const localStorage = require("localStorage");
 const path = require("path");
 
 module.exports = function(app) {
   app.get("/", (req, res) => {
     req;
     res.sendFile(path.join(__dirname, "../public/G6-HTML/index.html"));
-  });
-
-  app.get("/main", function(req, res) {
-    let currentUser = JSON.parse(localStorage.getItem("loggedUser"));
-    if (currentUser) {
-      if (currentUser.role === "1") {
-        res.redirect("/user");
-      } else {
-        res.redirect("/admin");
-      }
-    } else {
-      res.redirect("/");
-    }
   });
 
   app.get("/user", function(req, res) {

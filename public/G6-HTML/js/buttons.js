@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 $(document).ready(function() {
   $("#login-button").on("click", function(e) {
     e.preventDefault();
@@ -18,5 +19,27 @@ $(document).ready(function() {
     if (event.keyCode === 13) {
       $("#login-button").click();
     }
+  });
+  $("#requestSubmit").on("click", function() {
+    let newRequest = {
+      full_name: $("#fullName").val(),
+      asset_type: $("#assetType").val(),
+      laptop_type: $("#laptopType").val(),
+      monitor_type: $("#monitorType").val(),
+      software: $("#software").val(),
+      accessory: $("#accessoryType").val()
+    };
+    $.ajax("/api/request", {
+      type: "POST",
+      data: newRequest
+    }).then(function() {
+      $("#fullName").val("");
+      $("#assetType").val("");
+      $("#laptopType").val("");
+      $("#monitorType").val("");
+      $("#software").val("");
+      $("#accessoryType").val("");
+      $("#requestModal").modal("hide");
+    });
   });
 });
