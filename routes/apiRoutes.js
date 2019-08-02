@@ -116,17 +116,17 @@ module.exports = function(app) {
     db.User.findOne({ where: { username: loginUser.username } }).then(user => {
       if (!user) {
         console.log("No user");
-        res.json("No such user");
+        res.json("/");
         return "No such username.";
       } else {
         if (loginUser.password !== user.password) {
           console.log("wrong password");
-          res.json("Wrong password");
+          res.json("/");
           return "Incorrect password.";
         } else {
           localStorage.setItem("loggedUser", JSON.stringify(user));
           console.log(`Logged in user "${user.username}" successfully.`);
-          res.redirect("/main");
+          res.json("/main");
         }
       }
     });

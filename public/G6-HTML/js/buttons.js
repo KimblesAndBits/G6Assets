@@ -10,7 +10,7 @@ $(document).ready(function() {
         type: "POST",
         data: loginUser
       }).then(newPath => {
-        console.log(newPath);
+        location.replace(newPath);
       });
     }
   });
