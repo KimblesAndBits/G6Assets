@@ -6,8 +6,7 @@ const sessionChecker = require("./../public/G6-HTML/js/sessionChecker");
 module.exports = function(app) {
   // ========= CREATE ==========
   app.get("/api/currentUser", (req, res) => {
-    let currentUser = JSON.parse(localStorage.getItem("loggedUser"));
-    res.json(currentUser);
+    res.json(req.session.user);
   });
 
   app.post("/api/assign", function(req, res) {
@@ -127,10 +126,11 @@ module.exports = function(app) {
           res.json("/");
         } else {
           req.session.user = user.dataValues;
+          console.log(req.session.user);
           if (user.role === "1") {
-            res.redirect("/user");
+            res.json("/user");
           } else {
-            res.redirect("/admin");
+            res.json("/admin");
           }
         }
       });

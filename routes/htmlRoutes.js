@@ -3,7 +3,7 @@ const sessionChecker = require("../public/G6-HTML/js/sessionChecker");
 
 module.exports = function(app) {
   app.get("/", sessionChecker, (req, res) => {
-    res.sendFile(__dirname + "index.html");
+    res.sendFile(path.join(__dirname, "../public/G6-HTML/index.html"));
   });
 
   // app.route('/signup')
@@ -27,7 +27,7 @@ module.exports = function(app) {
 
   app.get("/user", function(req, res) {
     if (req.session.user && req.cookies.user_sid) {
-      res.sendFile(__dirname + "/../public/G6-HTML/user.html");
+      res.sendFile(path.join(__dirname, "../public/G6-HTML/user.html"));
     } else {
       res.redirect("/");
     }
@@ -35,7 +35,7 @@ module.exports = function(app) {
 
   app.get("/admin", (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
-      res.sendFile(__dirname + "admin.html");
+      res.sendFile(path.join(__dirname, "../public/G6-HTML/admin.html"));
     } else {
       res.redirect("/");
     }
@@ -45,9 +45,9 @@ module.exports = function(app) {
     if (
       req.session.user &&
       req.cookies.user_sid &&
-      req.session.user.role === 2
+      req.session.user.role === "2"
     ) {
-      res.sendFile(path.join(__dirname, "accessories.html"));
+      res.sendFile(path.join(__dirname, "../public/G6-HTML/accessories.html"));
     } else {
       res.redirect("/");
     }
@@ -57,9 +57,9 @@ module.exports = function(app) {
     if (
       req.session.user &&
       req.cookies.user_sid &&
-      req.session.user.role === 2
+      req.session.user.role === "2"
     ) {
-      res.sendFile(path.join(__dirname, "G6-HTML/hardware.html"));
+      res.sendFile(path.join(__dirname, "../public/G6-HTML/hardware.html"));
     } else {
       res.redirect("/");
     }
@@ -69,16 +69,13 @@ module.exports = function(app) {
     if (
       req.session.user &&
       req.cookies.user_sid &&
-      req.session.user.role === 2
+      req.session.user.role === "2"
     ) {
-      res.sendFile(path.join(__dirname, "G6-HTML/software.html"));
+      res.sendFile(path.join(__dirname, "../public/G6-HTML/software.html"));
     } else {
       res.redirect("/");
     }
   });
 
   // Render 404 page for any unmatched routes
-  app.get("*", function(req, res) {
-    res.send("ERROR - 110010100: Page Not Found");
-  });
 };
