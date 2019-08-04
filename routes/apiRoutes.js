@@ -1,13 +1,12 @@
 /* eslint-disable indent */
 /* eslint-disable camelcase */
 const db = require("../models");
-const localStorage = require("localStorage");
+const sessionChecker = require("./../public/G6-HTML/js/sessionChecker");
 
 module.exports = function(app) {
   // ========= CREATE ==========
   app.get("/api/currentUser", (req, res) => {
-    let currentUser = JSON.parse(localStorage.getItem("loggedUser"));
-    res.json(currentUser);
+    res.json(req.session.user);
   });
 
   app.post("/api/assign", function(req, res) {
@@ -111,132 +110,146 @@ module.exports = function(app) {
     });
   });
 
-  app.post("/api/login", (req, res) => {
-    let loginUser = req.body;
-    db.User.findOne({ where: { username: loginUser.username } }).then(user => {
-      if (!user) {
-        console.log("No user");
-        res.json("/");
-      } else {
-        if (loginUser.password !== user.password) {
-          console.log("wrong password");
+  app
+    .route("/api/login")
+    .get(sessionChecker, (req, res) => {
+      res.json("/");
+    })
+    .post((req, res) => {
+      let username = req.body.username;
+      let password = req.body.password;
+
+      db.User.findOne({ where: { username: username } }).then(function(user) {
+        if (!user) {
+          res.json("/");
+        } else if (user.password !== password) {
           res.json("/");
         } else {
-          localStorage.setItem("loggedUser", JSON.stringify(user));
-          console.log(`Logged in user "${user.username}" successfully.`);
-          if (loginUser.role === "1") {
+          req.session.user = user.dataValues;
+          console.log(req.session.user);
+          if (user.role === "1") {
             res.json("/user");
           } else {
             res.json("/admin");
           }
         }
-      }
+      });
+
+      // =========== READ ==============
+
+      // Get all accessories
+      app.get("/api/all-accessories", function(req, res) {
+        db.Accessory.findAll().then(function(results) {
+          res.json(results);
+        });
+      });
+
+      app.get("/api/recent-accessories", function(req, res) {
+        db.Accessory.findAll({ order: ["updatedAt"], limit: 5 }).then(function(
+          results
+        ) {
+          res.json(results);
+        });
+      });
+
+      app.get("/api/user-accessories/:id", function(req, res) {
+        db.Accessory.findOne({ where: { id: req.params.id } }).then(function(
+          results
+        ) {
+          res.json(results);
+        });
+      });
+
+      app.get("/api/user-accessories-ids/:id", function(req, res) {
+        db.User_Accessory.findAll({ where: { user_id: req.params.id } }).then(
+          function(results) {
+            res.json(results);
+          }
+        );
+      });
+
+      // Get all hardware
+      app.get("/api/all-hardware", function(req, res) {
+        db.Hardware.findAll().then(function(results) {
+          res.json(results);
+        });
+      });
+
+      app.get("/api/recent-hardware", function(req, res) {
+        db.Hardware.findAll({ order: ["updatedAt"], limit: 5 }).then(function(
+          results
+        ) {
+          res.json(results);
+        });
+      });
+
+      app.get("/api/user-hardware/:id", function(req, res) {
+        db.Hardware.findOne({ where: { id: req.params.id } }).then(function(
+          results
+        ) {
+          res.json(results);
+        });
+      });
+
+      app.get("/api/user-hardware-ids/:id", function(req, res) {
+        db.User_Hardware.findAll({ where: { user_id: req.params.id } }).then(
+          function(results) {
+            res.json(results);
+          }
+        );
+      });
+
+      // Get all software
+      app.get("/api/all-software", function(req, res) {
+        db.Software.findAll().then(function(results) {
+          res.json(results);
+        });
+      });
+
+      app.get("/api/recent-software", function(req, res) {
+        db.Software.findAll({ order: ["updatedAt"], limit: 5 }).then(function(
+          results
+        ) {
+          res.json(results);
+        });
+      });
+
+      app.get("/api/user-software/:id", function(req, res) {
+        db.Software.findOne({ where: { id: req.params.id } }).then(function(
+          results
+        ) {
+          res.json(results);
+        });
+      });
+
+      app.get("/api/user-software-ids/:id", function(req, res) {
+        db.User_Software.findAll({ where: { user_id: req.params.id } }).then(
+          function(results) {
+            res.json(results);
+          }
+        );
+      });
+
+      app.get("/api/logout", (req, res) => {
+        if (req.session.user && req.cookies.user_sid) {
+          res.clearCookie("user_sid");
+          res.json("/");
+        } else {
+          res.json("/");
+        }
+      });
+
+      // =========== UPDATE ==============
+
+      // =========== DELETE ==============
+
+      // Delete an example by id
+      app.delete("/api/delete/user/:id", function(req, res) {
+        db.User.destroy({ where: { id: req.params.id } }).then(function(
+          dbExample
+        ) {
+          res.json(dbExample);
+        });
+      });
     });
-  });
-
-  // =========== READ ==============
-
-  // Get all accessories
-  app.get("/api/all-accessories", function(req, res) {
-    db.Accessory.findAll().then(function(results) {
-      res.json(results);
-    });
-  });
-
-  app.get("/api/recent-accessories", function(req, res) {
-    db.Accessory.findAll({ order: ["updatedAt"], limit: 5 }).then(function(
-      results
-    ) {
-      res.json(results);
-    });
-  });
-
-  app.get("/api/user-accessories/:id", function(req, res) {
-    db.Accessory.findOne({ where: { id: req.params.id } }).then(function(
-      results
-    ) {
-      res.json(results);
-    });
-  });
-
-  app.get("/api/user-accessories-ids/:id", function(req, res) {
-    db.User_Accessory.findAll({ where: { user_id: req.params.id } }).then(
-      function(results) {
-        res.json(results);
-      }
-    );
-  });
-
-  // Get all hardware
-  app.get("/api/all-hardware", function(req, res) {
-    db.Hardware.findAll().then(function(results) {
-      res.json(results);
-    });
-  });
-
-  app.get("/api/recent-hardware", function(req, res) {
-    db.Hardware.findAll({ order: ["updatedAt"], limit: 5 }).then(function(
-      results
-    ) {
-      res.json(results);
-    });
-  });
-
-  app.get("/api/user-hardware/:id", function(req, res) {
-    db.Hardware.findOne({ where: { id: req.params.id } }).then(function(
-      results
-    ) {
-      res.json(results);
-    });
-  });
-
-  app.get("/api/user-hardware-ids/:id", function(req, res) {
-    db.User_Hardware.findAll({ where: { user_id: req.params.id } }).then(
-      function(results) {
-        res.json(results);
-      }
-    );
-  });
-
-  // Get all software
-  app.get("/api/all-software", function(req, res) {
-    db.Software.findAll().then(function(results) {
-      res.json(results);
-    });
-  });
-
-  app.get("/api/recent-software", function(req, res) {
-    db.Software.findAll({ order: ["updatedAt"], limit: 5 }).then(function(
-      results
-    ) {
-      res.json(results);
-    });
-  });
-
-  app.get("/api/user-software/:id", function(req, res) {
-    db.Software.findOne({ where: { id: req.params.id } }).then(function(
-      results
-    ) {
-      res.json(results);
-    });
-  });
-
-  app.get("/api/user-software-ids/:id", function(req, res) {
-    db.User_Software.findAll({ where: { user_id: req.params.id } }).then(
-      function(results) {
-        res.json(results);
-      }
-    );
-  });
-
-  // =========== UPDATE ==============
-
-  // =========== DELETE ==============
-
-  // Delete an example by id
-  app.delete("/api/delete/user/:id", function(req, res) {
-    db.User.destroy({ where: { id: req.params.id } }).then(function(dbExample) {
-      res.json(dbExample);
-    });
-  });
 };

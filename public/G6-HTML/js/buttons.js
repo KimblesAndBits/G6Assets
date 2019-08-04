@@ -42,4 +42,10 @@ $(document).ready(function() {
       $("#requestModal").modal("hide");
     });
   });
+
+  $("#logout").on("click", function() {
+    $.get("/api/logout").then(function(newPath) {
+      location.replace(newPath);
+    });
+  });
 });

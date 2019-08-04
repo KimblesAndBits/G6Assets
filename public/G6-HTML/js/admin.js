@@ -6,6 +6,7 @@ $.get("/api/currentUser", data => {
 
 $.get("/api/recent-software")
   .then(assetList => {
+    console.log(assetList);
     assetList.forEach(currentAsset => {
       const row = $("<tr>");
 
