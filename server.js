@@ -1,22 +1,36 @@
 require("dotenv").config();
 
-var express = require("express");
+const express = require("express");
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
 
-var db = require("./models");
+const db = require("./models");
 
-var app = express();
-var PORT = process.env.PORT || 3000;
+const app = express();
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static("public/G6-HTML"));
-
+app.use(cookieParser());
+app.use(
+  session({
+    // eslint-disable-next-line camelcase
+    key: "user_sid",
+    secret: "thereisnospoon",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      expires: 600000
+    }
+  })
+);
 // Routes
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
-var syncOptions = { force: false };
+let syncOptions = { force: false };
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`

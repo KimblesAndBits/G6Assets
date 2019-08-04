@@ -10,8 +10,6 @@ $(document).ready(function() {
       $.ajax("/api/login", {
         type: "POST",
         data: loginUser
-      }).then(newPath => {
-        location.replace(newPath);
       });
     }
   });
