@@ -35,43 +35,49 @@ module.exports = function(app) {
 
   app.get("/admin", (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
-      res.sendFile(path.join(__dirname, "../public/G6-HTML/admin.html"));
+      if (req.session.user.role === "2") {
+        res.sendFile(path.join(__dirname, "../public/G6-HTML/admin.html"));
+      } else {
+        res.redirect("/user");
+      }
     } else {
       res.redirect("/");
     }
   });
 
   app.get("/accessories", function(req, res) {
-    if (
-      req.session.user &&
-      req.cookies.user_sid &&
-      req.session.user.role === "2"
-    ) {
-      res.sendFile(path.join(__dirname, "../public/G6-HTML/accessories.html"));
+    if (req.session.user && req.cookies.user_sid) {
+      if (req.session.user.role === "2") {
+        res.sendFile(
+          path.join(__dirname, "../public/G6-HTML/accessories.html")
+        );
+      } else {
+        res.redirect("/user");
+      }
     } else {
       res.redirect("/");
     }
   });
 
   app.get("/hardware", function(req, res) {
-    if (
-      req.session.user &&
-      req.cookies.user_sid &&
-      req.session.user.role === "2"
-    ) {
-      res.sendFile(path.join(__dirname, "../public/G6-HTML/hardware.html"));
+    if (req.session.user && req.cookies.user_sid) {
+      if (req.session.user.role === "2") {
+        res.sendFile(path.join(__dirname, "../public/G6-HTML/hardware.html"));
+      } else {
+        res.redirect("/user");
+      }
     } else {
       res.redirect("/");
     }
   });
 
   app.get("/software", function(req, res) {
-    if (
-      req.session.user &&
-      req.cookies.user_sid &&
-      req.session.user.role === "2"
-    ) {
-      res.sendFile(path.join(__dirname, "../public/G6-HTML/software.html"));
+    if (req.session.user && req.cookies.user_sid) {
+      if (req.session.user.role === "2") {
+        res.sendFile(path.join(__dirname, "../public/G6-HTML/software.html"));
+      } else {
+        res.redirect("/user");
+      }
     } else {
       res.redirect("/");
     }
