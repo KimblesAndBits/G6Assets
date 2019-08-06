@@ -15,6 +15,7 @@ $.get("/api/all-users", data => {
 
 $("#userAssets").on("click", function() {
   let name = $("#userChoice").val();
+  $("#tableRow").empty();
   console.log(name);
   $.get(`/api/user/${name}`, user => {
     $.get(`/api/user-hardware-ids/${user.id}`, usersData => {
