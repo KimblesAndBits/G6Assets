@@ -161,7 +161,17 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h5 class="m-0 font-weight-bold text-primary float-left">All Software</h5>
+              <h5 class="m-0 font-weight-bold text-primary float-left">All Software</h5><br><br>
+              <div class="form-group">
+                <label for="userChoice">Choose a user to view their assigned accesories</label>
+                <select class="form-control" id="userChoice">
+                  <option disabled selected value> -- select a user -- </option>
+                </select>
+              </div>
+              <a class="btn btn-primary btn-icon-split btn-sm float-left" id="userAssets">
+                <span class="text" style="color: white">View assets</span>
+                <span class="icon text-white-50"><i class="far fa-user"></i></span>
+              </a>
               <a href="#" class="btn btn-primary btn-icon-split btn-sm float-right" data-toggle="modal" data-target="#addNewModal">
                 <span class="icon text-white-50"><i class="fas fa-exclamation-triangle"></i></span>
                 <span class="text">Add new asset</span>
@@ -176,8 +186,6 @@
                       <th>Product</th>
                       <th>Product Key</th>
                       <th>Expiration Date</th>
-                      <th>License Size</th>
-                      <th>License Available</th>
                       <th>Action</th>
                     </tr>
                   </thead>

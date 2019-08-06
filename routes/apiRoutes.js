@@ -138,6 +138,20 @@ module.exports = function(app) {
       // =========== READ ==============
 
       // Get all accessories
+      app.get("/api/all-users", function(req, res) {
+        db.User.findAll().then(function(results) {
+          res.json(results);
+        });
+      });
+
+      app.get("/api/user/:name", function(req, res) {
+        db.User.findOne({ where: { name: req.params.name } }).then(function(
+          results
+        ) {
+          res.json(results);
+        });
+      });
+
       app.get("/api/all-accessories", function(req, res) {
         db.Accessory.findAll().then(function(results) {
           res.json(results);
