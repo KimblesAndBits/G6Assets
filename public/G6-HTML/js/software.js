@@ -3,23 +3,37 @@ $.get("/api/currentUser", data => {
   $("#user-real-name").text(data.name);
 });
 
-$.get("/api/all-software", function(data) {
-  if (data.length !== 0) {
-    for (var i = 0; i < data.length; i++) {
-      var row = $("<tr>");
-
-      row.append("<td>" + data[i].manufacturer + "</td>");
-      row.append("<td>" + data[i].product + "</td>");
-      row.append("<td>" + data[i].product_key + "</td>");
-      row.append("<td>" + data[i].expiration_date + "</td>");
-      row.append("<td>" + data[i].license_size + "</td>");
-      row.append("<td>" + data[i].license_available + "</td>");
-      row.append(
-        "<td><a href='#' class='btn btn-success btn-circle btn-sm float-left' data-toggle='modal' data-target='#assignAsset'><span class='icon text-white-50'><i class='fas fa-check'></i></span></a><a href='#' class='btn btn-warning btn-circle btn-sm float-left' data-toggle='modal' data-target='#assignAsset'><span class='icon text-white-50'><i class='fas fa-exclamation-circle'></i></span></a><a href='#' class='btn btn-danger btn-circle btn-sm float-left' data-toggle='modal' data-target='#assignAsset'><span class='icon text-white-50'><i class='fas fa-trash'></i></span></a></td>"
+$.get("/api/all-users", data => {
+  if (data.length > 0) {
+    data.forEach(element => {
+      $("#userChoice").append(
+        `<option value="${element.name}">${element.name}</option>`
       );
-      row.append("</tr>");
-
-      $("#tableRow").prepend(row);
-    }
+    });
   }
+});
+
+$("#userAssets").on("click", function() {
+  let name = $("#userChoice").val();
+  console.log(name);
+  $.get(`/api/user/${name}`, user => {
+    $.get(`/api/user-software-ids/${user.id}`, usersData => {
+      usersData.forEach(element => {
+        $.get(`/api/user-software/${element.software_id}`, data => {
+          const row = $("<tr>");
+
+          row.append("<td>" + data.manufacturer + "</td>");
+          row.append("<td>" + data.product + "</td>");
+          row.append("<td>" + data.product_key + "</td>");
+          row.append("<td>" + data.expiration_date + "</td>");
+          row.append(
+            "<td><a href='#' class='btn btn-danger btn-circle btn-sm' data-toggle='modal' data-target='#assignAsset'><span class='icon text-white-50'><i class='fas fa-trash'></i></span></a>  Unassign Asset</td>"
+          );
+          row.append("</tr>");
+
+          $("#tableRow").prepend(row);
+        });
+      });
+    });
+  });
 });
